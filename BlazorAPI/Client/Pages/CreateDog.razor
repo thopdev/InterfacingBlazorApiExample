@@ -1,0 +1,11 @@
+﻿@page "/dogs/create/"
+
+    <EditForm Model="@_dog" OnValidSubmit="Create">
+        <label for="name" class="col-form-label">Name</label>
+        <InputText class="form-control" id="name" @bind-Value="@_dog.Name" />
+
+        <label for="age" class="col-form-label">Age</label>
+        <InputNumber class="form-control" id="age" @bind-Value="@_dog.Age" />
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>

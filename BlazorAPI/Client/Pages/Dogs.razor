@@ -1,0 +1,53 @@
+﻿@using BlazorAPI.Shared.Interfaces
+@using BlazorAPI.Shared.Models
+@page "/dogs"
+@page "/"
+@inject IDogEndpoint dogEndpoint
+
+<h3><a href="/dogs/create/">Create</a></h3>
+
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>Age</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    @foreach (var dog in _dogs)
+    {
+        <tr>
+            <td>@dog.Name</td>
+            <td> @dog.Age</td>
+            <td>
+                <a href="dogs/view/@dog.Name">View</a>
+            </td>
+            <td>
+                <a href="dogs/edit/@dog.Name">Edit</a>
+            </td>
+            <td>
+                <a @onclick="@(() => Delete(dog))" href="">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@code
+{
+    private IList<DogDto> _dogs = new List<DogDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _dogs = await dogEndpoint.Get();
+    }
+
+    public async Task Delete(DogDto dog)
+    {
+        await dogEndpoint.Delete(dog.Name);
+        _dogs = await dogEndpoint.Get();
+
+    }
+}

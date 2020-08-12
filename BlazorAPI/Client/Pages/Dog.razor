@@ -1,0 +1,10 @@
+﻿@using BlazorAPI.Shared.Interfaces
+@using BlazorAPI.Shared.Models
+@page "/dogs/view/{name}"
+@if (_dog != null)
+{
+    <h1>My Name is @_dog.Name</h1>
+    <p>Welcome on my page. I am @_dog.Age years old</p>
+
+    <a href="dogs">Back</a>
+}
